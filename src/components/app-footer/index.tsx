@@ -6,7 +6,7 @@ interface IProps {
 }
 
 const AppFooter: FC<IProps> = () => {
-  return <div>AppFooter</div>
+  return <h2>AppFooter 组件的搭建</h2>
 }
 
 export default memo(AppFooter)
