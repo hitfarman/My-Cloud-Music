@@ -43,21 +43,21 @@ const AppHeader: FC<IProps> = () => {
             网易云音乐
           </a>
           <div className="title-list">
-            {headerTitles.map((item) => (
-              <div className="item" key={item.title}>
-                {showItem(item)}
-              </div>
-            ))}
+            {headerTitles.map((item) => {
+              return (
+                <div className="item" key={item.title}>
+                  {showItem(item)}
+                </div>
+              )
+            })}
           </div>
         </HeaderLeft>
         <HeaderRight>
-          <span className="input">
-            <Input
-              className="search"
-              placeholder="音乐/视频/电台/用户"
-              prefix={<SearchOutlined />}
-            />
-          </span>
+          <Input
+            className="search"
+            placeholder="音乐/视频/电台/用户"
+            prefix={<SearchOutlined />}
+          />
           <span className="center">创作者中心</span>
           <span className="login">登录</span>
         </HeaderRight>

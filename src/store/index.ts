@@ -31,7 +31,6 @@ type DispatchType = typeof store.dispatch
     <TSelected>(selector: (state: TState) => TSelected, equalityFn?: EqualityFn<NoInfer<TSelected>>): TSelected;
  }
  */
-
 // 把 useSelector 赋值给 useAppSelector,但是, 给 useAppSelector 指定了一个函数调用签名, 在调用签名里面通过泛型 告诉它里面的 state 的类型是 IRootState, 这样在使用 useAppSelector函数的时候,就能正确推导出 state的类型了
 export const useAppSelector: TypedUseSelectorHook<IRootState> = useSelector
 export const useAppDispatch: () => DispatchType = useDispatch

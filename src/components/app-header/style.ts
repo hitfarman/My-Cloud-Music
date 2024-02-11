@@ -81,7 +81,7 @@ export const HeaderRight = styled.div`
   color: #787878;
   font-size: 12px;
 
-  .search {
+  > .search {
     width: 158px;
     height: 32px;
     border-radius: 16px;

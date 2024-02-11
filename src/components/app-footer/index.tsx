@@ -6,7 +6,7 @@ interface IProps {
 }
 
 const AppFooter: FC<IProps> = () => {
-  return <h2>AppFooter ×é¼şµÄ´î½¨</h2>
+  return <div>AppFooter ç»„ä»¶çš„æ­å»º</div>
 }
 
 export default memo(AppFooter)
