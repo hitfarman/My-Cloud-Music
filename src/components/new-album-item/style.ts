@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
 export const AlbumItemWrapper = styled.div`
+  /* fix an additional line on the end of NewAlbum carousel bug */
+  padding-left: 1px;
+  box-sizing: border-box;
+
   .top {
     position: relative;
     width: 118px;
