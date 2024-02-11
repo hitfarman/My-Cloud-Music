@@ -6,27 +6,21 @@ interface IRecommendState {
   result: any[]
   albums: any[]
 }
-export const fetchBannerDataAction = createAsyncThunk(
-  'banners',
-  async (arg, { dispatch }) => {
-    const res = await getBanners<IRecommendState>()
-    dispatch(changeBannersAction(res.banners))
-  }
-)
-
-export const fetchHotRecommendAction = createAsyncThunk(
-  'hotRecommend',
-  async (arg, { dispatch }) => {
-    const res = await getHotRecommend<IRecommendState>(8)
-    dispatch(changeHotRecommendAction(res.result))
-  }
-)
-
-export const fetchNewAlbumAction = createAsyncThunk(
-  'newAlubum',
-  async (arg, { dispatch }) => {
-    const res = await getNewAlbum<IRecommendState>()
-    dispatch(changeNewAlbumAction(res.albums))
+export const fetchRecommednDataAction = createAsyncThunk(
+  'fetchRecommendData',
+  (_, { dispatch }) => {
+    /** 1. 获取轮播图数据 */
+    getBanners<IRecommendState>().then((res) => {
+      dispatch(changeBannersAction(res.banners))
+    })
+    /** 2. 获取热门推荐数据 */
+    getHotRecommend<IRecommendState>(8).then((res) => {
+      dispatch(changeHotRecommendAction(res.result))
+    })
+    /** 3. 获取新碟上架数据 */
+    getNewAlbum<IRecommendState>().then((res) => {
+      dispatch(changeNewAlbumAction(res.albums))
+    })
   }
 )
 

@@ -22,8 +22,6 @@ const NewAlbum: FC<IProps> = () => {
     shallowEqualApp
   )
 
-  console.log(albums)
-
   /** 事件处理函数 */
   function handlePrevClick() {
     carouselRef.current?.prev()
