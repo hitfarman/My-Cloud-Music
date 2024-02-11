@@ -34,3 +34,13 @@ export function getPlaylistDetail<T = any>(id: number) {
     }
   })
 }
+
+export function getArtistList<T = any>(limit = 30) {
+  return hyRequest.get<T>({
+    url: '/artist/list',
+    headers: HEADERS,
+    params: {
+      limit
+    }
+  })
+}
