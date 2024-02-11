@@ -24,3 +24,13 @@ export function getNewAlbum<T = any>() {
     headers: HEADERS
   })
 }
+
+export function getPlaylistDetail<T = any>(id: number) {
+  return hyRequest.get<T>({
+    url: 'playlist/detail',
+    headers: HEADERS,
+    params: {
+      id
+    }
+  })
+}
