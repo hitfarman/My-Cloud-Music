@@ -1,14 +1,25 @@
 import styled from 'styled-components'
 
-export const PlayerBarWrapper = styled.div`
+interface IPlayerBarWrapper {
+  islock: boolean
+}
+export const PlayerBarWrapper = styled.div<IPlayerBarWrapper>`
   position: fixed;
   z-index: 99;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 52px;
+  height: ${(props) => (props.islock ? 52 : 0)}px;
+  /* height: 52px; */
   background-position: 0 0;
   background-repeat: repeat;
+
+  &:hover {
+    height: 52px;
+    .content {
+      height: 47px;
+    }
+  }
 
   .content {
     display: flex;
@@ -18,7 +29,29 @@ export const PlayerBarWrapper = styled.div`
     left: 50%;
     transform: translateX(-50%);
     bottom: 0;
-    height: 47px;
+    height: ${(props) => (props.islock ? 47 : 0)}px;
+  }
+
+  .show-bar {
+    position: absolute;
+    z-index: 999;
+    top: -14px;
+    right: 15px;
+    width: 52px;
+    height: 67px;
+    background-position: 0 -380px;
+
+    .lock {
+      display: block;
+      width: 18px;
+      height: 18px;
+      margin: 6px 0 0 17px;
+      background-position: ${(props) => (props.islock ? '-100' : '-80')}px -380px;
+    }
+
+    &:hover {
+      height: 67px;
+    }
   }
 `
 

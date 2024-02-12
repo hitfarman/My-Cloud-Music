@@ -28,6 +28,7 @@ const AppPlayerBar: FC<IProps> = () => {
   const [duration, setDuration] = useState(0)
   const [currentTime, setCurrentTime] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
+  const [isLocked, setIsLocked] = useState(true)
   const audioRef = useRef<HTMLAudioElement>(null)
 
   /** 从Redux中获取数据 */
@@ -151,8 +152,12 @@ const AppPlayerBar: FC<IProps> = () => {
     dispatch(changePlayModeAction(newPlayMode))
   }
 
+  function handleClock() {
+    setIsLocked(!isLocked)
+  }
+
   return (
-    <PlayerBarWrapper className="sprite_playbar">
+    <PlayerBarWrapper className="sprite_playbar" islock={isLocked}>
       <div className="content wrap-v2">
         <BarControl isplaying={isPlaying ? 'true' : 'false'}>
           <button
@@ -226,6 +231,9 @@ const AppPlayerBar: FC<IProps> = () => {
           <div className="div">{lyrics[lyricIndex]?.text}</div>
         </div>
       )}
+      <div className="show-bar sprite_playbar">
+        <button className="lock sprite_playbar" onClick={handleClock}></button>
+      </div>
     </PlayerBarWrapper>
   )
 }
