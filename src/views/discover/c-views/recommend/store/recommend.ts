@@ -18,6 +18,7 @@ interface IRecommendState {
   // newRanking: any
   // originRanking: any
 }
+
 export const fetchRecommednDataAction = createAsyncThunk(
   'fetchRecommendData',
   (_, { dispatch }) => {
@@ -74,8 +75,12 @@ export const fetchRankingDataAction = createAsyncThunk(
         而且这个res是等到promises中的promise全部调了resolve()之后才会到这里, 所以可以保证:
         第一: 拿到所有结果再来到这里;
         第二:可以保证这里结果的顺序,跟添加的promise顺序有关, 它内部帮我们做了顺序的记录
+
+        加filter的目的,是增加过滤服务器返回的数据是有playlist值的判断,有时服务器返回的playlist为空
        */
-      const playlists = res.map((item) => item.playlist)
+      const playlists = res
+        .filter((item) => item.playlist)
+        .map((item) => item.playlist)
       dispatch(changeRankingsAction(playlists))
     })
   }

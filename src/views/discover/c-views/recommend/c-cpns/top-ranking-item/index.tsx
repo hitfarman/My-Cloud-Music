@@ -2,6 +2,8 @@ import React, { memo } from 'react'
 import type { FC, ReactNode } from 'react'
 import { RankingItemWrapper } from './style'
 import { getImageUrl } from '@/utils/format'
+import { useAppDispatch } from '@/store'
+import { fetchCurrentSongData } from '@/views/player/store/player'
 
 interface IProps {
   children?: ReactNode
@@ -14,6 +16,11 @@ const TopRankingItem: FC<IProps> = (props) => {
   /** 如果没有结构出来给tracks一个空数组[], 如果不给初始值为空数组, 默认是undefined,就会报错 */
   const { tracks = [] } = itemData
   const moreLink = '#/discover/ranking/' + rankingId
+
+  const dispatch = useAppDispatch()
+  function handlePlayMusic(id: number) {
+    dispatch(fetchCurrentSongData(id))
+  }
 
   return (
     <RankingItemWrapper>
@@ -38,7 +45,10 @@ const TopRankingItem: FC<IProps> = (props) => {
               <div className="info">
                 <div className="name">{item.name}</div>
                 <div className="operate">
-                  <button className="sprite_02 btn play"></button>
+                  <button
+                    className="sprite_02 btn play"
+                    onClick={() => handlePlayMusic(item.id)}
+                  ></button>
                   <button className="sprite_icon2 btn add"></button>
                   <button className="sprite_02 btn favor"></button>
                 </div>

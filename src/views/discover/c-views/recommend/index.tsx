@@ -36,7 +36,6 @@ const Recommend: FC<IProps> = () => {
           <HotRecommend />
           <NewAlbum />
           <TopRanking />
-          left
         </div>
         <div className="right">
           <UserLogin />
