@@ -32,6 +32,17 @@ export const PlayerBarWrapper = styled.div<IPlayerBarWrapper>`
     height: ${(props) => (props.islock ? 47 : 0)}px;
   }
 
+  .lyric {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 50px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+  }
+
   .show-bar {
     position: absolute;
     z-index: 999;

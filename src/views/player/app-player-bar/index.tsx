@@ -156,6 +156,10 @@ const AppPlayerBar: FC<IProps> = () => {
     setIsLocked(!isLocked)
   }
 
+  function handleVolumeClick() {
+    console.log(audioRef.current?.volume)
+  }
+
   return (
     <PlayerBarWrapper className="sprite_playbar" islock={isLocked}>
       <div className="content wrap-v2">
@@ -212,7 +216,10 @@ const AppPlayerBar: FC<IProps> = () => {
             <button className="btn sprite_playbar share"></button>
           </div>
           <div className="right sprite_playbar">
-            <button className="btn sprite_playbar volume"></button>
+            <button
+              className="btn sprite_playbar volume"
+              onClick={handleVolumeClick}
+            ></button>
             <button
               className="btn sprite_playbar loop"
               onClick={handleChangePlayMode}
