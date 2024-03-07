@@ -19,11 +19,7 @@ const SettleSinger: FC<IProps> = () => {
 
   return (
     <SingerWrapper>
-      <AreaHeaderV2
-        title="入驻歌手"
-        moreText="查看全部&gt;"
-        moreLink="#/discover/artist"
-      />
+      <AreaHeaderV2 title="入驻歌手" moreText="查看全部&gt;" moreLink="#/discover/artist" />
       <div className="artists">
         {artists?.map((item: any) => {
           return (

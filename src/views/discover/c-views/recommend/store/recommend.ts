@@ -41,50 +41,45 @@ export const fetchRecommednDataAction = createAsyncThunk(
 )
 
 const rankingIds = [19723756, 3779629, 2884035]
-export const fetchRankingDataAction = createAsyncThunk(
-  'fetchRankingData',
-  (_, { dispatch }) => {
-    /** 1. 获取排行榜榜单数据 */
-    // 方案一: 每个请求单独处理
-    // rankingIds.forEach((item) => {
-    //   getPlaylistDetail<IRecommendState>(item).then((res) => {
-    //     switch (item) {
-    //       case 19723756:
-    //         console.log('飙升榜的数据', res)
-    //         break
-    //       case 3779629:
-    //         console.log('新歌榜的数据', res)
-    //         break
-    //       case 2884035:
-    //         console.log('原创榜的数据', res)
-    //         break
-    //       default:
-    //         break
-    //     }
-    //   })
-    // })
-    //////////////////////////////////////////////////////////////////////////////////////////////////
-    // 方案二:将三个结果都拿到,统一放到一个数组中管理
-    const promises: Promise<any>[] = []
-    rankingIds.forEach((item) => {
-      promises.push(getPlaylistDetail<any>(item))
-    })
+export const fetchRankingDataAction = createAsyncThunk('fetchRankingData', (_, { dispatch }) => {
+  /** 1. 获取排行榜榜单数据 */
+  // 方案一: 每个请求单独处理
+  // rankingIds.forEach((item) => {
+  //   getPlaylistDetail<IRecommendState>(item).then((res) => {
+  //     switch (item) {
+  //       case 19723756:
+  //         console.log('飙升榜的数据', res)
+  //         break
+  //       case 3779629:
+  //         console.log('新歌榜的数据', res)
+  //         break
+  //       case 2884035:
+  //         console.log('原创榜的数据', res)
+  //         break
+  //       default:
+  //         break
+  //     }
+  //   })
+  // })
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  // 方案二:将三个结果都拿到,统一放到一个数组中管理
+  const promises: Promise<any>[] = []
+  rankingIds.forEach((item) => {
+    promises.push(getPlaylistDetail<any>(item))
+  })
 
-    Promise.all(promises).then((res) => {
-      /* 这里拿到的res的结果一定是有正确的顺序的,
+  Promise.all(promises).then((res) => {
+    /* 这里拿到的res的结果一定是有正确的顺序的,
         而且这个res是等到promises中的promise全部调了resolve()之后才会到这里, 所以可以保证:
         第一: 拿到所有结果再来到这里;
         第二:可以保证这里结果的顺序,跟添加的promise顺序有关, 它内部帮我们做了顺序的记录
 
         加filter的目的,是增加过滤服务器返回的数据是有playlist值的判断,有时服务器返回的playlist为空
        */
-      const playlists = res
-        .filter((item) => item.playlist)
-        .map((item) => item.playlist)
-      dispatch(changeRankingsAction(playlists))
-    })
-  }
-)
+    const playlists = res.filter((item) => item.playlist).map((item) => item.playlist)
+    dispatch(changeRankingsAction(playlists))
+  })
+})
 
 const initialState: IRecommendState = {
   banners: [],

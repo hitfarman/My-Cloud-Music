@@ -12,12 +12,7 @@ interface IProps {
 }
 
 const AreaHeaderV1: FC<IProps> = (props) => {
-  const {
-    title = '默认标题',
-    keywords = [],
-    moreText = '更多',
-    moreLink = '/'
-  } = props
+  const { title = '默认标题', keywords = [], moreText = '更多', moreLink = '/' } = props
 
   return (
     <HeaderV1Wrapper className="sprite_02">
