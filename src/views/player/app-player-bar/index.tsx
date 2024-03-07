@@ -1,11 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from 'react'
 import type { FC, ReactNode } from 'react'
-import {
-  BarControl,
-  BarOperator,
-  BarPlayerInfo,
-  PlayerBarWrapper
-} from './style'
+import { BarControl, BarOperator, BarPlayerInfo, PlayerBarWrapper } from './style'
 import { Link } from 'react-router-dom'
 import { Slider } from 'antd'
 import { shallowEqualApp, useAppDispatch, useAppSelector } from '@/store'
@@ -14,8 +9,10 @@ import { getSongPlayUrl } from '@/utils/handle-player'
 import {
   changeLyricIndexAction,
   changeMusicAction,
-  changePlayModeAction
+  changePlayModeAction,
+  changeShowPanelAction
 } from '../store/player'
+import AppPlayerPannel from '../app-player-pannel'
 
 interface IProps {
   children?: ReactNode
@@ -32,12 +29,14 @@ const AppPlayerBar: FC<IProps> = () => {
   const audioRef = useRef<HTMLAudioElement>(null)
 
   /** 从Redux中获取数据 */
-  const { currentSong, lyrics, lyricIndex, playMode } = useAppSelector(
+  const { currentSong, lyrics, lyricIndex, playMode, playSongList, showPanel } = useAppSelector(
     (state) => ({
       currentSong: state.player.currentSong,
       lyrics: state.player.lyrics,
       lyricIndex: state.player.lyricIndex,
-      playMode: state.player.playMode
+      playMode: state.player.playMode,
+      playSongList: state.player.playSongList,
+      showPanel: state.player.showPanel
     }),
     shallowEqualApp
   )
@@ -153,7 +152,18 @@ const AppPlayerBar: FC<IProps> = () => {
   }
 
   function handleClock() {
+    if (showPanel) return
+    console.log('handleClock1:', isLocked)
     setIsLocked(!isLocked)
+    console.log('handleClock2:', isLocked)
+  }
+
+  function handleShowPlayList() {
+    const newValue = !showPanel
+    dispatch(changeShowPanelAction(newValue))
+    if (newValue) {
+      setIsLocked(true)
+    }
   }
 
   function handleVolumeClick() {
@@ -168,10 +178,7 @@ const AppPlayerBar: FC<IProps> = () => {
             className="btn sprite_playbar prev"
             onClick={() => handleChangeMusic(false)}
           ></button>
-          <button
-            className="btn sprite_playbar play"
-            onClick={handlePlayClick}
-          ></button>
+          <button className="btn sprite_playbar play" onClick={handlePlayClick}></button>
           <button
             className="btn sprite_playbar next"
             onClick={() => handleChangeMusic(true)}
@@ -179,11 +186,7 @@ const AppPlayerBar: FC<IProps> = () => {
         </BarControl>
         <BarPlayerInfo>
           <Link to="/player">
-            <img
-              className="image"
-              src={getImageUrl(currentSong?.al?.picUrl, 34)}
-              alt=""
-            />
+            <img className="image" src={getImageUrl(currentSong?.al?.picUrl, 34)} alt="" />
           </Link>
           <div className="info">
             <div className="song">
@@ -216,31 +219,24 @@ const AppPlayerBar: FC<IProps> = () => {
             <button className="btn sprite_playbar share"></button>
           </div>
           <div className="right sprite_playbar">
-            <button
-              className="btn sprite_playbar volume"
-              onClick={handleVolumeClick}
-            ></button>
-            <button
-              className="btn sprite_playbar loop"
-              onClick={handleChangePlayMode}
-            ></button>
-            <button className="btn sprite_playbar playlist"></button>
+            <button className="btn sprite_playbar volume" onClick={handleVolumeClick}></button>
+            <button className="btn sprite_playbar loop" onClick={handleChangePlayMode}></button>
+            <button className="btn sprite_playbar playlist" onClick={handleShowPlayList}>
+              {playSongList.length}
+            </button>
           </div>
         </BarOperator>
       </div>
-      <audio
-        ref={audioRef}
-        onTimeUpdate={handleTimeUpdate}
-        onEnded={handleSongEnded}
-      />
-      {isPlaying && (
+      <audio ref={audioRef} onTimeUpdate={handleTimeUpdate} onEnded={handleSongEnded} />
+      {/* {isPlaying && (
         <div className="lyric">
           <div className="div">{lyrics[lyricIndex]?.text}</div>
         </div>
-      )}
+      )} */}
       <div className="show-bar sprite_playbar">
         <button className="lock sprite_playbar" onClick={handleClock}></button>
       </div>
+      {showPanel && <AppPlayerPannel />}
     </PlayerBarWrapper>
   )
 }

@@ -2,10 +2,7 @@ import { useAppDispatch } from '@/store'
 import React, { memo, useEffect } from 'react'
 import type { FC, ReactNode } from 'react'
 
-import {
-  fetchRankingDataAction,
-  fetchRecommednDataAction
-} from './store/recommend'
+import { fetchRankingDataAction, fetchRecommednDataAction } from './store/recommend'
 import TopBanner from './c-cpns/top-banner'
 import { RecommendWrapper } from './style'
 import HotRecommend from './c-cpns/hot-recommend'

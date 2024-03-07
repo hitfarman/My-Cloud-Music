@@ -6,11 +6,7 @@ export function formatCount(count: number) {
   }
 }
 
-export function getImageUrl(
-  imageUrl: string,
-  width: number,
-  height: number = width
-) {
+export function getImageUrl(imageUrl: string, width: number, height: number = width) {
   return imageUrl + `?param=${width}y${height}`
 }
 

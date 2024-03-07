@@ -9,13 +9,13 @@ export const PlayerBarWrapper = styled.div<IPlayerBarWrapper>`
   left: 0;
   right: 0;
   bottom: 0;
-  height: ${(props) => (props.islock ? 52 : 0)}px;
+  height: ${(props) => (props.islock ? 53 : 0)}px;
   /* height: 52px; */
   background-position: 0 0;
   background-repeat: repeat;
 
   &:hover {
-    height: 52px;
+    height: 53px;
     .content {
       height: 47px;
     }
@@ -48,7 +48,7 @@ export const PlayerBarWrapper = styled.div<IPlayerBarWrapper>`
     z-index: 999;
     top: -14px;
     right: 15px;
-    width: 52px;
+    width: 53px;
     height: 67px;
     background-position: 0 -380px;
 
@@ -95,12 +95,10 @@ export const BarControl = styled.div<IBarControl>`
     width: 36px;
     height: 36px;
     margin: 0 8px;
-    background-position: 0
-      ${(props) => (props.isplaying === 'true' ? '-165px' : '-204px')};
+    background-position: 0 ${(props) => (props.isplaying === 'true' ? '-165px' : '-204px')};
 
     &:hover {
-      background-position: 0
-        ${(props) => (props.isplaying === 'true' ? '-165px' : '-204px')};
+      background-position: 0 ${(props) => (props.isplaying === 'true' ? '-165px' : '-204px')};
     }
   }
 
@@ -147,7 +145,7 @@ export const BarPlayerInfo = styled.div`
 
       .ant-slider {
         position: relative;
-        top: 1px;
+        top: 0;
         width: 493px;
         margin-right: 10px;
 
@@ -193,7 +191,6 @@ export const BarPlayerInfo = styled.div`
 interface IBarOperator {
   playmode: number
 }
-
 export const BarOperator = styled.div<IBarOperator>`
   display: flex;
   align-items: center;
@@ -248,9 +245,10 @@ export const BarOperator = styled.div<IBarOperator>`
     }
 
     .playlist {
-      padding-left: 18px;
+      padding-left: 24px;
       text-align: center;
-      color: #ccc;
+      color: #999;
+      text-shadow: 0 1px 0 #080707;
       width: 59px;
       background-position: -42px -68px;
     }

@@ -15,7 +15,7 @@ const NewAlbum: FC<IProps> = () => {
   const carouselRef = useRef<ElementRef<typeof Carousel>>(null)
 
   /** 从Redux中获取数据 */
-  const { albums } = useAppSelector(
+  const { albums = [] } = useAppSelector(
     (state) => ({
       albums: state.recommend.albums
     }),
@@ -34,10 +34,7 @@ const NewAlbum: FC<IProps> = () => {
     <AlbumWrapper>
       <AreaHeaderV1 title="新碟上架" moreLink="/discover/album" />
       <div className="content">
-        <button
-          className="sprite_02 arrow arrow-left"
-          onClick={handlePrevClick}
-        ></button>
+        <button className="sprite_02 arrow arrow-left" onClick={handlePrevClick}></button>
         <div className="banner">
           <Carousel speed={1000} dots={false} ref={carouselRef}>
             {[0, 1].map((item) => {
@@ -53,10 +50,7 @@ const NewAlbum: FC<IProps> = () => {
             })}
           </Carousel>
         </div>
-        <button
-          className="sprite_02 arrow arrow-right"
-          onClick={handleNextClick}
-        ></button>
+        <button className="sprite_02 arrow arrow-right" onClick={handleNextClick}></button>
       </div>
     </AlbumWrapper>
   )

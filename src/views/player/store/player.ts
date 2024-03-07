@@ -10,6 +10,7 @@ interface IPlayerState {
   playSongList: any[]
   playSongIndex: number
   playMode: number
+  showPanel: boolean
 }
 
 const initialState: IPlayerState = {
@@ -43,8 +44,7 @@ const initialState: IPlayerState = {
     al: {
       id: 166146490,
       name: '向云端',
-      picUrl:
-        'https://p1.music.126.net/TmOHxaGnFNlwNX8aPz66oA==/109951168638913915.jpg',
+      picUrl: 'https://p1.music.126.net/TmOHxaGnFNlwNX8aPz66oA==/109951168638913915.jpg',
       tns: [],
       pic_str: '109951168638913915',
       pic: 109951168638913920
@@ -145,8 +145,7 @@ const initialState: IPlayerState = {
       al: {
         id: 166146490,
         name: '向云端',
-        picUrl:
-          'https://p1.music.126.net/TmOHxaGnFNlwNX8aPz66oA==/109951168638913915.jpg',
+        picUrl: 'https://p1.music.126.net/TmOHxaGnFNlwNX8aPz66oA==/109951168638913915.jpg',
         tns: [],
         pic_str: '109951168638913915',
         pic: 109951168638913920
@@ -238,8 +237,7 @@ const initialState: IPlayerState = {
       al: {
         id: 181428669,
         name: '冬月初七',
-        picUrl:
-          'https://p1.music.126.net/YTRMgr4Y-TxzKgY-xRQplw==/109951169174233025.jpg',
+        picUrl: 'https://p1.music.126.net/YTRMgr4Y-TxzKgY-xRQplw==/109951169174233025.jpg',
         tns: [],
         pic_str: '109951169174233025',
         pic: 109951169174233020
@@ -424,8 +422,7 @@ const initialState: IPlayerState = {
       al: {
         id: 91378009,
         name: '刘大壮的翻唱合辑',
-        picUrl:
-          'https://p2.music.126.net/Pjhed_enaZL4YFfkSZEixg==/109951165085372391.jpg',
+        picUrl: 'https://p2.music.126.net/Pjhed_enaZL4YFfkSZEixg==/109951165085372391.jpg',
         tns: [],
         pic_str: '109951165085372391',
         pic: 109951165085372380
@@ -605,8 +602,7 @@ const initialState: IPlayerState = {
       al: {
         id: 3159840,
         name: '热门华语266',
-        picUrl:
-          'https://p1.music.126.net/cpoUinrExafBHL5Nv5iDHQ==/109951166361218466.jpg',
+        picUrl: 'https://p1.music.126.net/cpoUinrExafBHL5Nv5iDHQ==/109951166361218466.jpg',
         tns: [],
         pic_str: '109951166361218466',
         pic: 109951166361218460
@@ -832,7 +828,8 @@ const initialState: IPlayerState = {
     // }
   ],
   playSongIndex: -1,
-  playMode: 0 // 0:顺序播放  1:随机播放  2:单曲循环
+  playMode: 0, // 0:顺序播放  1:随机播放  2:单曲循环
+  showPanel: false
 }
 
 interface IThunkState {
@@ -898,8 +895,7 @@ export const changeMusicAction = createAsyncThunk<void, boolean, IThunkState>(
       newIndex = Math.floor(Math.random() * songList.length)
     } else {
       // 单曲循环和顺序播放
-      newIndex =
-        (songList.length + songIndex + (isNext ? 1 : -1)) % songList.length
+      newIndex = (songList.length + songIndex + (isNext ? 1 : -1)) % songList.length
     }
 
     // 3.获取当前的歌曲
@@ -942,6 +938,9 @@ const playerSlice = createSlice({
     },
     changePlayModeAction(state, { payload }) {
       state.playMode = payload
+    },
+    changeShowPanelAction(state, { payload }) {
+      state.showPanel = payload
     }
   }
 })
@@ -952,6 +951,7 @@ export const {
   changeLyricsAction,
   changeLyricIndexAction,
   changePlaySongListAction,
-  changePlayModeAction
+  changePlayModeAction,
+  changeShowPanelAction
 } = playerSlice.actions
 export default playerSlice.reducer

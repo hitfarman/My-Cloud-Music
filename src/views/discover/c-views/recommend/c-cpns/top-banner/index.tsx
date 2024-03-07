@@ -51,9 +51,7 @@ const TopBanner: FC<IProps> = () => {
   }
 
   return (
-    <BannerWrapper
-      style={{ background: `url('${bgImageUrl}') center center/ 6000px` }}
-    >
+    <BannerWrapper style={{ background: `url('${bgImageUrl}') center center/ 6000px` }}>
       <div className="banner wrap-v2">
         <BannerLeft>
           <Carousel
@@ -67,11 +65,7 @@ const TopBanner: FC<IProps> = () => {
             {banners.map((item) => {
               return (
                 <div className="banner-item" key={item.imageUrl}>
-                  <img
-                    className="image"
-                    src={item.imageUrl}
-                    alt={item.typeTitle}
-                  />
+                  <img className="image" src={item.imageUrl} alt={item.typeTitle} />
                 </div>
               )
             })}
